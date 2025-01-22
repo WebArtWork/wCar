@@ -62,6 +62,56 @@ const routes: Routes = [
 		children: [
 			/* user */
 			{
+				path: 'cartrade',
+				canActivate: [MetaGuard],
+				data: {
+					meta: {
+						title: 'Cartrade'
+					}
+				},
+				loadChildren: () => import('./modules/cartrade/pages/cartrade/cartrade.module').then(m => m.CartradeModule)
+			},
+			{
+				path: 'carservice',
+				canActivate: [MetaGuard],
+				data: {
+					meta: {
+						title: 'Carservice'
+					}
+				},
+				loadChildren: () => import('./modules/carservice/pages/carservice/carservice.module').then(m => m.CarserviceModule)
+			},
+			{
+				path: 'carpart',
+				canActivate: [MetaGuard],
+				data: {
+					meta: {
+						title: 'Carpart'
+					}
+				},
+				loadChildren: () => import('./modules/carpart/pages/carpart/carpart.module').then(m => m.CarpartModule)
+			},
+			{
+				path: 'carrecord',
+				canActivate: [MetaGuard],
+				data: {
+					meta: {
+						title: 'Carrecord'
+					}
+				},
+				loadChildren: () => import('./modules/carrecord/pages/carrecord/carrecord.module').then(m => m.CarrecordModule)
+			},
+			{
+				path: 'car',
+				canActivate: [MetaGuard],
+				data: {
+					meta: {
+						title: 'Car'
+					}
+				},
+				loadChildren: () => import('./modules/car/pages/car/car.module').then(m => m.CarModule)
+			}, 
+			{
 				path: 'profile',
 				canActivate: [MetaGuard],
 				data: {
