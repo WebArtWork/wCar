@@ -98,60 +98,45 @@
 					<span class="material-icons">directions_car</span>
 					<span translate>Theme.Car</span>
 				</a>
-				<hr *ngIf="us.role('admin')" />
 				<a
 					[routerLinkActiveOptions]="{ exact: true }"
 					routerLinkActive="_activeLink"
-					routerLink="propertiesrecords"
+					routerLink="carrecord"
 					class="nav__burger-link"
 					(click)="hideSidebar()"
 				>
-					<span class="material-icons">note_add</span>
-					<span translate>Theme.PropertiesRecords</span>
+					<span class="material-icons">receipt</span>
+					<span translate>Theme.Carrecord</span>
 				</a>
-				<hr *ngIf="us.role('admin')" />
 				<a
 					[routerLinkActiveOptions]="{ exact: true }"
 					routerLinkActive="_activeLink"
-					routerLink="propertiesmaterials"
+					routerLink="carpart"
 					class="nav__burger-link"
 					(click)="hideSidebar()"
 				>
-					<span class="material-icons">build</span>
-					<span translate>Theme.PropertiesMaterials</span>
+					<span class="material-icons">settings</span>
+					<span translate>Theme.Carpart</span>
 				</a>
-				<hr *ngIf="us.role('admin')" />
 				<a
 					[routerLinkActiveOptions]="{ exact: true }"
 					routerLinkActive="_activeLink"
-					routerLink="propertiesagency"
+					routerLink="carservice"
 					class="nav__burger-link"
 					(click)="hideSidebar()"
 				>
-					<span class="material-icons">business</span>
-					<span translate>Theme.PropertiesAgency</span>
+					<span class="material-icons">miscellaneous_services</span>
+					<span translate>Theme.Carservice</span>
 				</a>
-				<hr *ngIf="us.role('admin')" />
 				<a
 					[routerLinkActiveOptions]="{ exact: true }"
 					routerLinkActive="_activeLink"
-					routerLink="propertiesagency"
+					routerLink="cartrade"
 					class="nav__burger-link"
 					(click)="hideSidebar()"
 				>
-					<span class="material-icons">group</span>
-					<span translate>Theme.PropertiesWorkers</span>
-				</a>
-				<hr *ngIf="us.role('admin')" />
-				<a
-					[routerLinkActiveOptions]="{ exact: true }"
-					routerLinkActive="_activeLink"
-					routerLink="propertiestrades"
-					class="nav__burger-link"
-					(click)="hideSidebar()"
-				>
-					<span class="material-icons">attach_money</span>
-					<span translate>Theme.PropertiesTrades</span>
+					<span class="material-icons">shopping_cart</span>
+					<span translate>Theme.Cartrade</span>
 				</a>
 			</div>
 		</div>
