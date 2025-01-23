@@ -26,6 +26,14 @@ wCar ** — це мобільний додаток, створений для е
 6. Market Cars: Платформа для створення, перегляду та управління оголошеннями про продаж автомобілів.
 7. Compare Cars: Функція порівняння характеристик, історії та відгуків про автомобілі.
 
+
+Конект:
+1. part.car: **optional** Car parts can be linked to a specific car to track their usage and replacement history, but this is not required.
+2. record.car: **mandatory** Each car record (e.g., maintenance, crashes) must be linked to a specific car for accurate history tracking.
+3. trade.car: **mandatory** Each car sale listing must be connected to a car profile to prefill details and ensure accurate listings.
+4. service.place: **mandatory** Services listed in the app must be associated with a specific service center (place) to provide location-based service details.
+
+
 Сценарії:
 1. Створення профілю автомобіля: Користувач додає новий автомобіль до свого списку, вводячи такі дані, як марка, модель, рік випуску, та завантажуючи фото.
 2. Запис обслуговування: Користувач фіксує подію обслуговування із зазначенням дати, типу роботи та вартості в історії автомобіля.
