@@ -62,6 +62,16 @@ const routes: Routes = [
 		children: [
 			/* user */
 			{
+				path: 'carplace',
+				canActivate: [MetaGuard],
+				data: {
+					meta: {
+						title: 'Carplace'
+					}
+				},
+				loadChildren: () => import('./modules/carplace/pages/carplace/carplace.module').then(m => m.CarplaceModule)
+			}, 
+			{
 				path: 'cartrade',
 				canActivate: [MetaGuard],
 				data: {

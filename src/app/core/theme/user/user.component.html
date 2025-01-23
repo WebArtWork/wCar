@@ -138,6 +138,16 @@
 					<span class="material-icons">shopping_cart</span>
 					<span translate>Theme.Cartrade</span>
 				</a>
+				<a
+					[routerLinkActiveOptions]="{ exact: true }"
+					routerLinkActive="_activeLink"
+					routerLink="carplace"
+					class="nav__burger-link"
+					(click)="hideSidebar()"
+				>
+					<span class="material-icons">more_vert</span>
+					<span translate>Theme.Carplace</span>
+				</a>
 			</div>
 		</div>
 		<router-outlet></router-outlet>
