@@ -62,6 +62,36 @@ const routes: Routes = [
 		children: [
 			/* user */
 			{
+				path: 'marketparts',
+				canActivate: [MetaGuard],
+				data: {
+					meta: {
+						title: 'Marketparts'
+					}
+				},
+				loadChildren: () => import('./pages/user/marketparts/marketparts.module').then(m => m.MarketpartsModule)
+			}, 
+			{
+				path: 'marketcars',
+				canActivate: [MetaGuard],
+				data: {
+					meta: {
+						title: 'Marketcars'
+					}
+				},
+				loadChildren: () => import('./pages/user/marketcars/marketcars.module').then(m => m.MarketcarsModule)
+			}, 
+			{
+				path: 'compare',
+				canActivate: [MetaGuard],
+				data: {
+					meta: {
+						title: 'Compare'
+					}
+				},
+				loadChildren: () => import('./pages/user/compare/compare.module').then(m => m.CompareModule)
+			}, 
+			{
 				path: 'carplace',
 				canActivate: [MetaGuard],
 				data: {

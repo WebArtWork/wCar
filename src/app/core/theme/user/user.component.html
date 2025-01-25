@@ -96,7 +96,7 @@
 					(click)="hideSidebar()"
 				>
 					<span class="material-icons">directions_car</span>
-					<span translate>Theme.Car</span>
+					<span translate>Theme.Cars</span>
 				</a>
 				<a
 					[routerLinkActiveOptions]="{ exact: true }"
@@ -106,7 +106,7 @@
 					(click)="hideSidebar()"
 				>
 					<span class="material-icons">receipt</span>
-					<span translate>Theme.Carrecord</span>
+					<span translate>Theme.Records</span>
 				</a>
 				<a
 					[routerLinkActiveOptions]="{ exact: true }"
@@ -116,7 +116,7 @@
 					(click)="hideSidebar()"
 				>
 					<span class="material-icons">settings</span>
-					<span translate>Theme.Carpart</span>
+					<span translate>Theme.Parts</span>
 				</a>
 				<a
 					[routerLinkActiveOptions]="{ exact: true }"
@@ -126,7 +126,7 @@
 					(click)="hideSidebar()"
 				>
 					<span class="material-icons">miscellaneous_services</span>
-					<span translate>Theme.Carservice</span>
+					<span translate>Theme.Services</span>
 				</a>
 				<a
 					[routerLinkActiveOptions]="{ exact: true }"
@@ -136,7 +136,7 @@
 					(click)="hideSidebar()"
 				>
 					<span class="material-icons">shopping_cart</span>
-					<span translate>Theme.Cartrade</span>
+					<span translate>Theme.Trades</span>
 				</a>
 				<a
 					[routerLinkActiveOptions]="{ exact: true }"
@@ -146,8 +146,39 @@
 					(click)="hideSidebar()"
 				>
 					<span class="material-icons">more_vert</span>
-					<span translate>Theme.Carplace</span>
+					<span translate>Theme.Places</span>
 				</a>
+				<a
+					[routerLinkActiveOptions]="{ exact: true }"
+					routerLinkActive="_activeLink"
+					routerLink="compare"
+					class="nav__burger-link"
+					(click)="hideSidebar()"
+				>
+					<span class="material-icons">compare_arrows</span>
+					<span translate>Theme.Compare</span>
+				</a>
+				<a
+					[routerLinkActiveOptions]="{ exact: true }"
+					routerLinkActive="_activeLink"
+					routerLink="marketcars"
+					class="nav__burger-link"
+					(click)="hideSidebar()"
+				>
+					<span class="material-icons">sell</span>
+					<span translate>Theme.Market Cars</span>
+				</a>
+				<a
+					[routerLinkActiveOptions]="{ exact: true }"
+					routerLinkActive="_activeLink"
+					routerLink="marketparts"
+					class="nav__burger-link"
+					(click)="hideSidebar()"
+				>
+					<span class="material-icons">add_shopping_cart</span>
+					<span translate>Theme.Market Parts</span>
+				</a>
+				<hr />
 			</div>
 		</div>
 		<router-outlet></router-outlet>
