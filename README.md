@@ -16,6 +16,7 @@ wCar ** — це мобільний додаток, створений для е
 3. carpart: Управління запчастинами та їх життєвим циклом.
 4. carservice: Зв’язок користувачів із сервісами для автомобілів.
 5. cartrade: Полегшення процесу продажу автомобілів і порівняння моделей.
+6. carplace: Управління локаціями сервісних центрів. Користувачі можуть переглядати доступні сервісні центри, додавати їх до списку улюблених і переглядати, які послуги вони надають.
 
 Сторінки:
 1. My Cars: Панель для перегляду та управління усіма профілями автомобілів користувача.
@@ -28,10 +29,13 @@ wCar ** — це мобільний додаток, створений для е
 
 
 Конект:
-1. part.car: **optional** Car parts can be linked to a specific car to track their usage and replacement history, but this is not required.
-2. record.car: **mandatory** Each car record (e.g., maintenance, crashes) must be linked to a specific car for accurate history tracking.
-3. trade.car: **mandatory** Each car sale listing must be connected to a car profile to prefill details and ensure accurate listings.
-4. service.place: **mandatory** Services listed in the app must be associated with a specific service center (place) to provide location-based service details.
+1. part.car: **optional** Автозапчастини можна прив’язати до конкретного автомобіля, щоб відстежувати історію їх використання та заміни, але це не обов’язково.
+
+2. record.car: **mandatory** Кожен запис автомобіля (наприклад, технічне обслуговування, аварії) має бути пов’язаний із конкретним автомобілем для точного відстеження історії.
+
+3. trade.car: **mandatory** Кожне оголошення про продаж автомобіля має бути пов’язане з профілем автомобіля, щоб попередньо заповнити деталі та забезпечити точність списків.
+
+4. service.place: **mandatory** Послуги, перелічені в додатку, мають бути пов’язані з певним сервісним центром (місцем), щоб надавати інформацію про послуги на основі місцезнаходження.
 
 
 Сценарії:

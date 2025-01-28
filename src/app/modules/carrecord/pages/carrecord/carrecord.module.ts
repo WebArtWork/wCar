@@ -7,7 +7,11 @@ const routes: Routes = [
 	{
 		path: '',
 		component: CarrecordComponent
-	}
+	},
+	{
+		path: ':car_id',
+		component: CarrecordComponent
+	},
 ];
 
 @NgModule({

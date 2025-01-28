@@ -7,6 +7,11 @@ import { TranslateService } from 'src/app/core/modules/translate/translate.servi
 import { FormInterface } from 'src/app/core/modules/form/interfaces/form.interface';
 import { carFormComponents } from '../../formcomponents/car.formcomponents';
 import { firstValueFrom } from 'rxjs';
+import { Carrecord } from 'src/app/modules/carrecord/interfaces/carrecord.interface';
+import { Carpart } from 'src/app/modules/carpart/interfaces/carpart.interface';
+import { Cartrade } from 'src/app/modules/cartrade/interfaces/cartrade.interface';
+import { Carservice } from 'src/app/modules/carservice/interfaces/carservice.interface';
+
 
 @Component({
 	templateUrl: './car.component.html',
@@ -70,11 +75,30 @@ export class CarComponent {
 		},
 		buttons: [
 			{
+				icon: 'settings',
+				hrefFunc: (doc: Carpart): string => {
+					return '/carpart/' + doc._id ;
+				},
+			},
+			{
+				icon: 'description',
+				hrefFunc: (doc: Carrecord): string => {
+					return '/carrecord/' + doc._id ;
+				},
+			},
+			{
+				icon: 'shopping_cart',
+				hrefFunc: (doc: Cartrade): string => {
+					return '/cartrade/' + doc._id ;
+				},
+			},
+			{
 				icon: 'cloud_download',
 				click: (doc: Car): void => {
 					this._form.modalUnique<Car>('car', 'url', doc);
 				},
 			},
+
 		],
 		headerButtons: [
 			{

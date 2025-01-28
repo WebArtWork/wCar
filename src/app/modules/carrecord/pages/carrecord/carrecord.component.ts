@@ -7,6 +7,8 @@ import { TranslateService } from 'src/app/core/modules/translate/translate.servi
 import { FormInterface } from 'src/app/core/modules/form/interfaces/form.interface';
 import { carrecordFormComponents } from '../../formcomponents/carrecord.formcomponents';
 import { firstValueFrom } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { log } from 'console';
 
 @Component({
 	templateUrl: './carrecord.component.html',
@@ -23,7 +25,7 @@ export class CarrecordComponent {
 		perPage: 20,
 		setPerPage: this._carrecordService.setPerPage.bind(this._carrecordService),
 		allDocs: false,
-		create: (): void => {
+		create: this._router.url.includes('carrecord/') ?  (): void => {
 			this._form.modal<Carrecord>(this.form, {
 				label: 'Create',
 				click: async (created: unknown, close: () => void) => {
@@ -38,7 +40,7 @@ export class CarrecordComponent {
 					this.setRows();
 				},
 			});
-		},
+		} : null,
 		update: (doc: Carrecord): void => {
 			this._form
 				.modal<Carrecord>(this.form, [], doc)
@@ -92,14 +94,24 @@ export class CarrecordComponent {
 
 	rows: Carrecord[] = [];
 
+	car_id = '';
+
 	constructor(
 		private _translate: TranslateService,
 		private _carrecordService: CarrecordService,
 		private _alert: AlertService,
+		private _route: ActivatedRoute,
 		private _form: FormService,
-		private _core: CoreService
+		private _core: CoreService,
+		private _router: Router
+
 	) {
 		this.setRows();
+		this._route.paramMap.subscribe(params => {
+			this.car_id = params.get('car_id') || '';
+
+			console.log(this.car_id)
+		})
 	}
 
 	setRows(page = this._page): void {
@@ -108,7 +120,9 @@ export class CarrecordComponent {
 		this._core.afterWhile(
 			this,
 			() => {
-				this._carrecordService.get({ page }).subscribe((rows) => {
+				this._carrecordService
+				.get({ page, query: this._query() })
+				.subscribe((rows) => {
 					this.rows.splice(0, this.rows.length);
 
 					this.rows.push(...rows);
@@ -173,6 +187,20 @@ export class CarrecordComponent {
 	}
 
 	private _preCreate(carrecord: Carrecord): void {
-		delete carrecord.__created;
+		carrecord.__created = false;
+
+		if (this.car_id){
+			carrecord.car = this.car_id;
+		}
+	}
+
+	private _query(): string {
+		let query = '';
+
+		if (this.car_id) {
+			query += (query ? '&' : '') + 'car=' + this.car_id;
+		}
+
+		return query;
 	}
 }

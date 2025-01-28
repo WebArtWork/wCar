@@ -7,6 +7,10 @@ const routes: Routes = [
 	{
 		path: '',
 		component: CartradeComponent
+	},
+	{
+		path: ':car_id',
+		component: CartradeComponent
 	}
 ];
 
