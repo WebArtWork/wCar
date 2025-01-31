@@ -7,6 +7,7 @@ import { TranslateService } from 'src/app/core/modules/translate/translate.servi
 import { FormInterface } from 'src/app/core/modules/form/interfaces/form.interface';
 import { carpartFormComponents } from '../../formcomponents/carpart.formcomponents';
 import { firstValueFrom } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
 	templateUrl: './carpart.component.html',
@@ -14,6 +15,10 @@ import { firstValueFrom } from 'rxjs';
 	standalone: false,
 })
 export class CarpartComponent {
+	car_id = this._router.url.includes('carpart/')
+		? this._router.url.replace('/carpart/', '')
+		: '';
+
 	columns = ['name', 'description'];
 
 	form: FormInterface = this._form.getForm('carpart', carpartFormComponents);
@@ -97,7 +102,8 @@ export class CarpartComponent {
 		private _carpartService: CarpartService,
 		private _alert: AlertService,
 		private _form: FormService,
-		private _core: CoreService
+		private _core: CoreService,
+		private _router: Router
 	) {
 		this.setRows();
 	}
@@ -108,7 +114,14 @@ export class CarpartComponent {
 		this._core.afterWhile(
 			this,
 			() => {
-				this._carpartService.get({ page }).subscribe((rows) => {
+				this._carpartService
+				.get({
+					page,
+					query: this.car_id
+						? 'car=' + this.car_id
+						: ''
+				})
+				.subscribe((rows) => {
 					this.rows.splice(0, this.rows.length);
 
 					this.rows.push(...rows);
@@ -173,6 +186,10 @@ export class CarpartComponent {
 	}
 
 	private _preCreate(carpart: Carpart): void {
-		delete carpart.__created;
+		carpart.__created;
+
+		if (this.car_id){
+			carpart.car = this.car_id;
+		}
 	}
 }

@@ -7,11 +7,12 @@ import { AlertService, CoreService } from 'wacom';
 import { FormService } from 'src/app/core/modules/form/form.service';
 import { TranslateService } from 'src/app/core/modules/translate/translate.service';
 import { FormInterface } from 'src/app/core/modules/form/interfaces/form.interface';
+import { Carplace } from 'src/app/modules/carplace/interfaces/carplace.interface';
 
 @Component({
 	templateUrl: './services.component.html',
 	styleUrls: ['./services.component.scss'],
-	standalone: false,
+	standalone: false
 })
 export class ServicesComponent {
 	columns = ['name', 'description'];
@@ -27,13 +28,13 @@ export class ServicesComponent {
 				fields: [
 					{
 						name: 'Placeholder',
-						value: 'fill services title',
+						value: 'fill services title'
 					},
 					{
 						name: 'Label',
-						value: 'Title',
-					},
-				],
+						value: 'Title'
+					}
+				]
 			},
 			{
 				name: 'Text',
@@ -41,15 +42,15 @@ export class ServicesComponent {
 				fields: [
 					{
 						name: 'Placeholder',
-						value: 'fill services description',
+						value: 'fill services description'
 					},
 					{
 						name: 'Label',
-						value: 'Description',
-					},
-				],
-			},
-		],
+						value: 'Description'
+					}
+				]
+			}
+		]
 	});
 
 	config = {
@@ -62,7 +63,7 @@ export class ServicesComponent {
 					this._cs.create(created as Carservice);
 
 					close();
-				},
+				}
 			});
 		},
 		update: (doc: Carservice): void => {
@@ -81,15 +82,15 @@ export class ServicesComponent {
 				),
 				buttons: [
 					{
-						text: this._translate.translate('Common.No'),
+						text: this._translate.translate('Common.No')
 					},
 					{
 						text: this._translate.translate('Common.Yes'),
 						callback: (): void => {
 							this._cs.delete(doc);
-						},
-					},
-				],
+						}
+					}
+				]
 			});
 		},
 		buttons: [
@@ -97,21 +98,21 @@ export class ServicesComponent {
 				icon: 'cloud_download',
 				click: (doc: Carservice): void => {
 					this._form.modalUnique<Carservice>('services', 'url', doc);
-				},
-			},
+				}
+			}
 		],
 		headerButtons: [
 			{
 				icon: 'playlist_add',
 				click: this._bulkManagement(),
-				class: 'playlist',
+				class: 'playlist'
 			},
 			{
 				icon: 'edit_note',
 				click: this._bulkManagement(false),
-				class: 'edit',
-			},
-		],
+				class: 'edit'
+			}
+		]
 	};
 
 	get rows(): Carservice[] {

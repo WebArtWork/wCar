@@ -7,6 +7,7 @@ import { TranslateService } from 'src/app/core/modules/translate/translate.servi
 import { FormInterface } from 'src/app/core/modules/form/interfaces/form.interface';
 import { cartradeFormComponents } from '../../formcomponents/cartrade.formcomponents';
 import { firstValueFrom } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
 	templateUrl: './cartrade.component.html',
@@ -14,6 +15,11 @@ import { firstValueFrom } from 'rxjs';
 	standalone: false,
 })
 export class CartradeComponent {
+	car_id = this._router.url.includes('cartrade/')
+		? this._router.url.replace('/cartrade/', '')
+		: '';
+
+
 	columns = ['name', 'description'];
 
 	form: FormInterface = this._form.getForm('cartrade', cartradeFormComponents);
@@ -97,7 +103,8 @@ export class CartradeComponent {
 		private _cartradeService: CartradeService,
 		private _alert: AlertService,
 		private _form: FormService,
-		private _core: CoreService
+		private _core: CoreService,
+		private _router: Router
 	) {
 		this.setRows();
 	}
@@ -108,7 +115,15 @@ export class CartradeComponent {
 		this._core.afterWhile(
 			this,
 			() => {
-				this._cartradeService.get({ page }).subscribe((rows) => {
+				this._cartradeService
+				.get({
+					page,
+					query: this.car_id
+						? 'car=' + this.car_id
+						: ''
+
+				})
+				.subscribe((rows) => {
 					this.rows.splice(0, this.rows.length);
 
 					this.rows.push(...rows);
@@ -173,6 +188,10 @@ export class CartradeComponent {
 	}
 
 	private _preCreate(cartrade: Cartrade): void {
-		delete cartrade.__created;
+		cartrade.__created;
+
+		if (this.car_id){
+			cartrade.car = this.car_id;
+		}
 	}
 }

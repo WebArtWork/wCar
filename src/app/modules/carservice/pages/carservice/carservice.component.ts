@@ -7,21 +7,32 @@ import { TranslateService } from 'src/app/core/modules/translate/translate.servi
 import { FormInterface } from 'src/app/core/modules/form/interfaces/form.interface';
 import { carserviceFormComponents } from '../../formcomponents/carservice.formcomponents';
 import { firstValueFrom } from 'rxjs';
+import { Carplace } from 'src/app/modules/carplace/interfaces/carplace.interface';
+import { Router } from '@angular/router';
 
 @Component({
 	templateUrl: './carservice.component.html',
 	styleUrls: ['./carservice.component.scss'],
-	standalone: false,
+	standalone: false
 })
 export class CarserviceComponent {
+	car_id = this._router.url.includes('carservice/')
+		? this._router.url.replace('/carservice/', '')
+		: '';
+
 	columns = ['name', 'description'];
 
-	form: FormInterface = this._form.getForm('carservice', carserviceFormComponents);
+	form: FormInterface = this._form.getForm(
+		'carservice',
+		carserviceFormComponents
+	);
 
 	config = {
 		paginate: this.setRows.bind(this),
 		perPage: 20,
-		setPerPage: this._carserviceService.setPerPage.bind(this._carserviceService),
+		setPerPage: this._carserviceService.setPerPage.bind(
+			this._carserviceService
+		),
 		allDocs: false,
 		create: (): void => {
 			this._form.modal<Carservice>(this.form, {
@@ -36,7 +47,7 @@ export class CarserviceComponent {
 					);
 
 					this.setRows();
-				},
+				}
 			});
 		},
 		update: (doc: Carservice): void => {
@@ -55,39 +66,51 @@ export class CarserviceComponent {
 				),
 				buttons: [
 					{
-						text: this._translate.translate('Common.No'),
+						text: this._translate.translate('Common.No')
 					},
 					{
 						text: this._translate.translate('Common.Yes'),
 						callback: async (): Promise<void> => {
-							await firstValueFrom(this._carserviceService.delete(doc));
+							await firstValueFrom(
+								this._carserviceService.delete(doc)
+							);
 
 							this.setRows();
-						},
-					},
-				],
+						}
+					}
+				]
 			});
 		},
 		buttons: [
 			{
+				icon: 'more_vert',
+				hrefFunc: (doc: Carplace): string => {
+					return '/carplace/' + doc._id;
+				}
+			},
+			{
 				icon: 'cloud_download',
 				click: (doc: Carservice): void => {
-					this._form.modalUnique<Carservice>('carservice', 'url', doc);
-				},
-			},
+					this._form.modalUnique<Carservice>(
+						'carservice',
+						'url',
+						doc
+					);
+				}
+			}
 		],
 		headerButtons: [
 			{
 				icon: 'playlist_add',
 				click: this._bulkManagement(),
-				class: 'playlist',
+				class: 'playlist'
 			},
 			{
 				icon: 'edit_note',
 				click: this._bulkManagement(false),
-				class: 'edit',
-			},
-		],
+				class: 'edit'
+			}
+		]
 	};
 
 	rows: Carservice[] = [];
@@ -97,7 +120,8 @@ export class CarserviceComponent {
 		private _carserviceService: CarserviceService,
 		private _alert: AlertService,
 		private _form: FormService,
-		private _core: CoreService
+		private _core: CoreService,
+		private _router: Router
 	) {
 		this.setRows();
 	}
@@ -108,7 +132,14 @@ export class CarserviceComponent {
 		this._core.afterWhile(
 			this,
 			() => {
-				this._carserviceService.get({ page }).subscribe((rows) => {
+				this._carserviceService
+				.get({
+					page,
+					query: this.car_id
+						? 'car=' + this.car_id
+						: ''
+				})
+				.subscribe((rows) => {
 					this.rows.splice(0, this.rows.length);
 
 					this.rows.push(...rows);
@@ -137,7 +168,8 @@ export class CarserviceComponent {
 						for (const carservice of this.rows) {
 							if (
 								!carservices.find(
-									(localCarservice) => localCarservice._id === carservice._id
+									(localCarservice) =>
+										localCarservice._id === carservice._id
 								)
 							) {
 								await firstValueFrom(
@@ -148,14 +180,17 @@ export class CarserviceComponent {
 
 						for (const carservice of carservices) {
 							const localCarservice = this.rows.find(
-								(localCarservice) => localCarservice._id === carservice._id
+								(localCarservice) =>
+									localCarservice._id === carservice._id
 							);
 
 							if (localCarservice) {
 								this._core.copy(carservice, localCarservice);
 
 								await firstValueFrom(
-									this._carserviceService.update(localCarservice)
+									this._carserviceService.update(
+										localCarservice
+									)
 								);
 							} else {
 								this._preCreate(carservice);
@@ -173,6 +208,10 @@ export class CarserviceComponent {
 	}
 
 	private _preCreate(carservice: Carservice): void {
-		delete carservice.__created;
+		carservice.__created;
+
+		if (this.car_id){
+			carservice.car = this.car_id;
+		}
 	}
 }
