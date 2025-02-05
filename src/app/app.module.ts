@@ -62,6 +62,16 @@ const routes: Routes = [
 		children: [
 			/* user */
 			{
+				path: 'mycars',
+				canActivate: [MetaGuard],
+				data: {
+					meta: {
+						title: 'Mycars'
+					}
+				},
+				loadChildren: () => import('./pages/user/mycars/mycars.module').then(m => m.MycarsModule)
+			}, 
+			{
 				path: 'marketparts',
 				canActivate: [MetaGuard],
 				data: {
@@ -70,7 +80,7 @@ const routes: Routes = [
 					}
 				},
 				loadChildren: () => import('./pages/user/marketparts/marketparts.module').then(m => m.MarketpartsModule)
-			}, 
+			},
 			{
 				path: 'marketcars',
 				canActivate: [MetaGuard],
@@ -80,7 +90,7 @@ const routes: Routes = [
 					}
 				},
 				loadChildren: () => import('./pages/user/marketcars/marketcars.module').then(m => m.MarketcarsModule)
-			}, 
+			},
 			{
 				path: 'compare',
 				canActivate: [MetaGuard],
@@ -90,7 +100,7 @@ const routes: Routes = [
 					}
 				},
 				loadChildren: () => import('./pages/user/compare/compare.module').then(m => m.CompareModule)
-			}, 
+			},
 			{
 				path: 'carplace',
 				canActivate: [MetaGuard],
@@ -100,7 +110,7 @@ const routes: Routes = [
 					}
 				},
 				loadChildren: () => import('./modules/carplace/pages/carplace/carplace.module').then(m => m.CarplaceModule)
-			}, 
+			},
 			{
 				path: 'cartrade',
 				canActivate: [MetaGuard],
@@ -150,7 +160,7 @@ const routes: Routes = [
 					}
 				},
 				loadChildren: () => import('./modules/car/pages/car/car.module').then(m => m.CarModule)
-			}, 
+			},
 			{
 				path: 'profile',
 				canActivate: [MetaGuard],

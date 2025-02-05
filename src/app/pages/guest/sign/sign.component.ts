@@ -191,7 +191,7 @@ export class SignComponent {
 
 			this.us.get();
 
-			this._router.navigateByUrl('/car');
+			this._router.navigateByUrl('/mycars');
 		} else {
 			this._alert.error({
 				text: 'Something went wrong'
