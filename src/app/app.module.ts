@@ -70,7 +70,7 @@ const routes: Routes = [
 					}
 				},
 				loadChildren: () => import('./pages/user/mycars/mycars.module').then(m => m.MycarsModule)
-			}, 
+			},
 			{
 				path: 'marketparts',
 				canActivate: [MetaGuard],

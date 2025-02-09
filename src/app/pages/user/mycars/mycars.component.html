@@ -10,6 +10,7 @@
 
 
 
+
 <div class="documents-wrapper" [class.documents-wrapper--open]="isMenuOpen">
     <div class="documents-container">
         <div class="documents-list">
@@ -32,6 +33,8 @@
             <div class="documents-main">
                 <div class="documents-main-content">
                     <div  class="documents-main-row">
+						<app-mycar *ngFor="let car of mycars" [car]="car"></app-mycar>
+
                         <p>menu works!</p>
                     </div>
                 </div>
@@ -40,4 +43,3 @@
         </div>
     </div>
   </div>
-  
