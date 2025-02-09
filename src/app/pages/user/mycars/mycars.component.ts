@@ -8,17 +8,11 @@ import { CarService } from 'src/app/modules/car/services/car.service';
 	standalone: false
 })
 export class MycarsComponent {
+	get mycars(): Car[] {
+		return this._carService.cars
+	}
+
 	isMenuOpen = false;
 
-
-	mycars: Car[] = [];
 	constructor(private _carService: CarService) {}
-	ngOnInit(): void {
-		this.loadMycars();
-	}
-	private loadMycars(): void {
-		this._carService.get().subscribe((data: Car[]) => {
-			this.mycars = data;
-		});
-	}
 }
