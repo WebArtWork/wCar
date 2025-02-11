@@ -32,10 +32,16 @@
             </div>
             <div class="documents-main">
                 <div class="documents-main-content">
-                    <div  class="documents-main-row">
-						<app-mycar *ngFor="let car of mycars" [car]="car"></app-mycar>
+                    <div
 
-                        <p>menu works!</p>
+
+						*ngFor="let car of mycars"
+						class="documents-main-row">
+						<a routerLink="/carprofile/{{car._id}}">
+							<app-mycar [car]="car"></app-mycar>
+						</a>
+
+
                     </div>
                 </div>
             </div>

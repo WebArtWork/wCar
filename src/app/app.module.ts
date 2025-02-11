@@ -62,6 +62,16 @@ const routes: Routes = [
 		children: [
 			/* user */
 			{
+				path: 'carprofile',
+				canActivate: [MetaGuard],
+				data: {
+					meta: {
+						title: 'Carprofile'
+					}
+				},
+				loadChildren: () => import('./pages/user/carprofile/carprofile.module').then(m => m.CarprofileModule)
+			}, 
+			{
 				path: 'mycars',
 				canActivate: [MetaGuard],
 				data: {
