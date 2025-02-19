@@ -61,6 +61,7 @@ const routes: Routes = [
 		component: UserComponent,
 		children: [
 			/* user */
+			
 			{
 				path: 'carhistory',
 				canActivate: [MetaGuard],
@@ -70,7 +71,7 @@ const routes: Routes = [
 					}
 				},
 				loadChildren: () => import('./pages/user/carhistory/carhistory.module').then(m => m.CarhistoryModule)
-			}, 
+			},
 			{
 				path: 'carprofile',
 				canActivate: [MetaGuard],
