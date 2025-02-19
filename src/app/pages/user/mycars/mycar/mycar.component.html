@@ -1,2 +1,18 @@
 <div class="documents__title">{{car.name}}</div>
 <div class="documents__description">{{car.description}}</div>
+
+<span
+	(click)="update(car); $event.preventDefault(); $event.stopPropagation()"
+	class="material-icons"
+	>edit</span
+>
+<span
+	(click)="delete(car); $event.preventDefault(); $event.stopPropagation()"
+	class="material-icons"
+	>delete</span
+>
+<span
+	(click)="goToCarHistory(car); $event.preventDefault(); $event.stopPropagation()"
+	class="material-icons"
+	>manage_search</span
+>

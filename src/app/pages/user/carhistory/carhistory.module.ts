@@ -7,7 +7,12 @@ const routes: Routes = [
 	{
 		path: '',
 		component: CarhistoryComponent
-	}
+	},
+	{
+		path: ':car_id',
+		component: CarhistoryComponent
+	},
+
 ];
 
 @NgModule({
