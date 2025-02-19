@@ -23,7 +23,46 @@ export interface Word {
 })
 export class TranslateService {
 	readonly allLanguages = languages;
+
 	readonly appId = (environment as unknown as { appId: string }).appId;
+
+	readonly defaultLanguageCode = (
+		environment as unknown as { defaultLanguageCode: string }
+	).defaultLanguageCode;
+
+	// Array of all words for translation
+	words: Word[] = [];
+
+	// Array of pages for words
+	pages: string[] = [];
+
+	// Array of supported languages
+	languages: Language[] = (
+		environment as unknown as { languages: Language[] }
+	).languages
+		? (environment as unknown as { languages: Language[] }).languages
+		: [
+				{
+					code: 'en',
+					name: 'English',
+					origin: 'English'
+				}
+			];
+
+	// Currently selected language
+	language: Language = this.defaultLanguageCode
+		? languages.find((l) => l.code === this.defaultLanguageCode) || {
+				code: 'en',
+				name: 'English',
+				origin: 'English'
+			}
+		: this.languages.length
+			? this.languages[0]
+			: {
+					code: 'en',
+					name: 'English',
+					origin: 'English'
+				};
 
 	constructor(
 		private store: StoreService,
@@ -52,32 +91,32 @@ export class TranslateService {
 			}
 		});
 
-		this.http.get('/api/translate/get' + (this.appId ? '/' + this.appId : ''), (obj) => {
-			if (obj) {
-				this.translates = obj;
-				this.store.setJson('translates', this.translates);
-			}
-		});
-
-		this.http.get('/api/word/get' + (this.appId ? '/' + this.appId : ''), (arr) => {
-			if (arr) {
-				this.words = arr;
-				this.store.setJson('words', this.words);
-				for (let i = 0; i < arr.length; i++) {
-					if (this.pages.indexOf(arr[i].page) < 0) {
-						this.pages.push(arr[i].page);
-					}
+		this.http.get(
+			'/api/translate/get' + (this.appId ? '/' + this.appId : ''),
+			(obj) => {
+				if (obj) {
+					this.translates = obj;
+					this.store.setJson('translates', this.translates);
 				}
-				this._wordsLoaded = true;
 			}
-		});
+		);
+
+		this.http.get(
+			'/api/word/get' + (this.appId ? '/' + this.appId : ''),
+			(arr) => {
+				if (arr) {
+					this.words = arr;
+					this.store.setJson('words', this.words);
+					for (let i = 0; i < arr.length; i++) {
+						if (this.pages.indexOf(arr[i].page) < 0) {
+							this.pages.push(arr[i].page);
+						}
+					}
+					this._wordsLoaded = true;
+				}
+			}
+		);
 	}
-
-	// Array of all words for translation
-	words: Word[] = [];
-
-	// Array of pages for words
-	pages: string[] = [];
 
 	/**
 	 * Deletes a word and its associated translation from the backend and local state.
@@ -88,38 +127,20 @@ export class TranslateService {
 			if (this.words[i]._id == word._id) this.words.splice(i, 1);
 		}
 
-		this.http.post('/api/word/delete' + (this.appId ? '/' + this.appId : ''), {
-			_id: word._id
-		});
-
-		this.http.post('/api/translate/delete' + (this.appId ? '/' + this.appId : ''), {
-			slug: word.slug
-		});
-	}
-
-	/* Translate Use */
-
-	// Array of supported languages
-	languages: Language[] = (
-		environment as unknown as { languages: Language[] }
-	).languages
-		? (environment as unknown as { languages: Language[] }).languages
-		: [
+		this.http.post(
+			'/api/word/delete' + (this.appId ? '/' + this.appId : ''),
 			{
-				code: 'en',
-				name: 'English',
-				origin: 'English'
+				_id: word._id
 			}
-		];
+		);
 
-	// Currently selected language
-	language: Language = this.languages.length
-		? this.languages[0]
-		: {
-			code: 'en',
-			name: 'English',
-			origin: 'English'
-		};
+		this.http.post(
+			'/api/translate/delete' + (this.appId ? '/' + this.appId : ''),
+			{
+				slug: word.slug
+			}
+		);
+	}
 
 	/**
 	 * Sets the current language and updates the translations.
@@ -162,6 +183,7 @@ export class TranslateService {
 	translates: any = {};
 
 	resets: any = {};
+
 	now = Date.now();
 
 	/**
@@ -225,6 +247,7 @@ export class TranslateService {
 	}
 
 	private _created: Record<string, boolean> = {};
+
 	private _wordsLoaded = false;
 
 	/**
